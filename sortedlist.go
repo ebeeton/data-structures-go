@@ -1,16 +1,16 @@
 // Package datastructuresgo defines common data structures.
 package datastructuresgo
 
-// A single Node in a sorted doubly-linked list.
-type Node[T any] struct {
-	Data       T
-	Next, Prev *Node[T]
+// A single node in a sorted doubly-linked list.
+type node[T any] struct {
+	data       T
+	next, prev *node[T]
 }
 
 // A sorted doubly-linked list.
 type SortedList[T any] struct {
 	less       func(T, T) bool
-	head, tail *Node[T]
+	head, tail *node[T]
 	count      uint
 }
 
@@ -28,7 +28,7 @@ func (l SortedList[T]) IsEmpty() bool {
 
 // AddHead adds an item to the list head.
 func (l *SortedList[T]) AddHead(t T) {
-	// TODO:: Implmentation.
+	// TODO:: Implementation.
 }
 
 func (l SortedList[T]) Count() uint {
