@@ -54,4 +54,39 @@ func TestAdd(t *testing.T) {
 	if count != 5 {
 		t.Errorf("Count() = %d, want 5", count)
 	}
+
+	want := []int{1, 2, 3, 4, 5}
+	idx := 0
+	l.Traverse(func(i int) bool {
+		if i != want[idx] {
+			t.Errorf("Got %d, want %d", i, want[idx])
+		}
+		idx += 1
+		return true
+	})
+}
+
+func TestTraverseStopEarly(t *testing.T) {
+	l := NewSortedList(less)
+	l.Add(2)
+	l.Add(5)
+	l.Add(3)
+	l.Add(1)
+	l.Add(4)
+
+	count := l.Count()
+
+	if count != 5 {
+		t.Errorf("Count() = %d, want 5", count)
+	}
+
+	idx := 0
+	l.Traverse(func(i int) bool {
+		idx += 1
+		return idx != 3
+	})
+
+	if idx != 3 {
+		t.Errorf("idx = %d, want 3", idx)
+	}
 }

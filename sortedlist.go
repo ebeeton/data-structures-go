@@ -69,3 +69,14 @@ func (l *SortedList[T]) Add(t T) {
 func (l SortedList[T]) Count() uint {
 	return l.count
 }
+
+// Traverse traverses the nodes in the SortedList from head to tail. It calls
+// the provided function for each, passing in the node's value. It stops either
+// when the complete list is traversed, or the function returns false.
+func (l SortedList[T]) Traverse(f func(T) bool) {
+	for c := l.head; c != nil; c = c.next {
+		if !f(c.data) {
+			return
+		}
+	}
+}
