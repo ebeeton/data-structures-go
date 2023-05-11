@@ -52,8 +52,6 @@ func (l *SortedList[T]) Add(t T) {
 			}
 			if l.head == c {
 				l.head = n
-			} else if l.tail == c {
-				l.tail = n
 			}
 			return
 		}
@@ -75,6 +73,17 @@ func (l SortedList[T]) Count() uint {
 // when the complete list is traversed, or the function returns false.
 func (l SortedList[T]) Traverse(f func(T) bool) {
 	for c := l.head; c != nil; c = c.next {
+		if !f(c.data) {
+			return
+		}
+	}
+}
+
+// TraverseR traverses the nodes in the SortedList from tail to head. It calls
+// the provided function for each, passing in the node's value. It stops either
+// when the complete list is traversed, or the function returns false.
+func (l SortedList[T]) TraverseR(f func(T) bool) {
+	for c := l.tail; c != nil; c = c.prev {
 		if !f(c.data) {
 			return
 		}
