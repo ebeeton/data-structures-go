@@ -21,7 +21,7 @@ func TestIsEmpty(t *testing.T) {
 
 func TestIsNotEmpty(t *testing.T) {
 	l := NewSortedList(less)
-	l.AddHead(1)
+	l.Add(1)
 
 	got := l.IsEmpty()
 
@@ -41,17 +41,17 @@ func TestNewSortedList(t *testing.T) {
 	}
 }
 
-func TestAddHead(t *testing.T) {
+func TestAdd(t *testing.T) {
 	l := NewSortedList(less)
-	l.AddHead(2)
-	l.AddHead(5)
-	l.AddHead(3)
-	l.AddHead(1)
-	l.AddHead(4)
+	l.Add(2)
+	l.Add(5)
+	l.Add(3)
+	l.Add(1)
+	l.Add(4)
 
 	count := l.Count()
 
 	if count != 5 {
-		t.Errorf("Count() = %d, want 0", count)
+		t.Errorf("Count() = %d, want 5", count)
 	}
 }

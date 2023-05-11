@@ -1,7 +1,6 @@
 // Package datastructuresgo defines common data structures.
 package datastructuresgo
 
-// A single node in a sorted doubly-linked list.
 type node[T any] struct {
 	data       T
 	next, prev *node[T]
@@ -21,16 +20,52 @@ func NewSortedList[T any](less func(T, T) bool) *SortedList[T] {
 	}
 }
 
-// IsEmpty returns true when the list has no nodes.
+// IsEmpty returns true when the SortedList has no nodes.
 func (l SortedList[T]) IsEmpty() bool {
 	return l.head == nil && l.tail == nil
 }
 
-// AddHead adds an item to the list head.
-func (l *SortedList[T]) AddHead(t T) {
-	// TODO:: Implementation.
+// Add adds an item to the list.
+func (l *SortedList[T]) Add(t T) {
+	defer func() {
+		l.count += 1
+	}()
+
+	n := &node[T]{
+		data: t,
+	}
+
+	if l.IsEmpty() {
+		l.head = n
+		l.tail = n
+		return
+	}
+
+	c := l.head
+	for ; c != nil; c = c.next {
+		if l.less(n.data, c.data) {
+			n.next = c
+			n.prev = c.prev
+			c.prev = n
+			if n.prev != nil {
+				n.prev.next = n
+			}
+			if l.head == c {
+				l.head = n
+			} else if l.tail == c {
+				l.tail = n
+			}
+			return
+		}
+	}
+
+	// Couldn't find a larger element, so make it the new tail.
+	l.tail.next = n
+	n.prev = l.tail
+	l.tail = n
 }
 
+// Count returns the number of nodes in the SortedList.
 func (l SortedList[T]) Count() uint {
 	return l.count
 }
