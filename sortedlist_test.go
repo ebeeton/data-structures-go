@@ -48,14 +48,15 @@ func TestAdd(t *testing.T) {
 	l.Add(3)
 	l.Add(1)
 	l.Add(4)
+	l.Add(6)
 
 	count := l.Count()
 
-	if count != 5 {
-		t.Errorf("Count() = %d, want 5", count)
+	if count != 6 {
+		t.Errorf("Count() = %d, want 6", count)
 	}
 
-	want := []int{1, 2, 3, 4, 5}
+	want := []int{1, 2, 3, 4, 5, 6}
 	idx := 0
 	l.Traverse(func(i int) bool {
 		if i != want[idx] {
@@ -98,14 +99,15 @@ func TestTraverseR(t *testing.T) {
 	l.Add(3)
 	l.Add(1)
 	l.Add(4)
+	l.Add(6)
 
 	count := l.Count()
 
-	if count != 5 {
+	if count != 6 {
 		t.Errorf("Count() = %d, want 5", count)
 	}
 
-	want := []int{5, 4, 3, 2, 1}
+	want := []int{6, 5, 4, 3, 2, 1}
 	idx := 0
 	l.TraverseR(func(i int) bool {
 		if i != want[idx] {
