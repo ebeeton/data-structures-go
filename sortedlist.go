@@ -21,7 +21,7 @@ func NewSortedList[T any](less func(T, T) bool) *SortedList[T] {
 }
 
 // IsEmpty returns true when the SortedList has no nodes.
-func (l SortedList[T]) IsEmpty() bool {
+func (l *SortedList[T]) IsEmpty() bool {
 	return l.head == nil && l.tail == nil
 }
 
@@ -64,14 +64,14 @@ func (l *SortedList[T]) Add(t T) {
 }
 
 // Count returns the number of nodes in the SortedList.
-func (l SortedList[T]) Count() uint {
+func (l *SortedList[T]) Count() uint {
 	return l.count
 }
 
 // Traverse traverses the nodes in the SortedList from head to tail. It calls
 // the provided function for each, passing in the node's value. It stops either
 // when the complete list is traversed, or the function returns false.
-func (l SortedList[T]) Traverse(f func(T) bool) {
+func (l *SortedList[T]) Traverse(f func(T) bool) {
 	for c := l.head; c != nil; c = c.next {
 		if !f(c.data) {
 			return
@@ -82,7 +82,7 @@ func (l SortedList[T]) Traverse(f func(T) bool) {
 // TraverseR traverses the nodes in the SortedList from tail to head. It calls
 // the provided function for each, passing in the node's value. It stops either
 // when the complete list is traversed, or the function returns false.
-func (l SortedList[T]) TraverseR(f func(T) bool) {
+func (l *SortedList[T]) TraverseR(f func(T) bool) {
 	for c := l.tail; c != nil; c = c.prev {
 		if !f(c.data) {
 			return
