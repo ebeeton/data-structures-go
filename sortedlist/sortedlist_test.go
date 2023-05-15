@@ -1,5 +1,5 @@
-// Package datastructuresgo defines common data structures.
-package datastructuresgo
+// Package sortedlist provides a generic sorted doubly-linked list.
+package sortedlist
 
 import (
 	"testing"
