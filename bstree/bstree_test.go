@@ -16,3 +16,14 @@ func TestIsEmpty(t *testing.T) {
 		t.Errorf("IsEmpty() = %t, want true", got)
 	}
 }
+
+func TestIsNotEmpty(t *testing.T) {
+	tree := NewBSTree(less)
+	tree.Add(10)
+
+	got := tree.IsEmpty()
+
+	if got {
+		t.Errorf("IsEmpty() = %t, want false", got)
+	}
+}

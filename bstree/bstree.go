@@ -2,6 +2,7 @@
 package bstree
 
 type node[T any] struct {
+	data T
 }
 
 // A binary search tree.
@@ -18,6 +19,15 @@ func NewBSTree[T any](less func(T, T) bool) *BSTree[T] {
 }
 
 // IsEmpty returns true when there are no nodes in the tree.
-func (t *BSTree[T]) IsEmpty() bool {
-	return t.root == nil
+func (tree *BSTree[T]) IsEmpty() bool {
+	return tree.root == nil
+}
+
+func (tree *BSTree[T]) Add(t T) {
+	if tree.root == nil {
+		tree.root = &node[T]{
+			data: t,
+		}
+		return
+	}
 }
