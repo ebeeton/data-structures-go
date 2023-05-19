@@ -43,3 +43,23 @@ func TestCount(t *testing.T) {
 		t.Errorf("Count() = %d, want %d", got, want)
 	}
 }
+
+func TestPreOrder(t *testing.T) {
+	tree := NewBSTree(less)
+	tree.Add(10) // Root
+	tree.Add(3)  // Root.left
+	tree.Add(13) // Root.right
+	tree.Add(1)  // Root.left.left
+	tree.Add(15) // Root.right.right
+
+	want := []int{10, 3, 1, 13, 15}
+
+	idx := 0
+	tree.PreOrder(func(i int) bool {
+		if i != want[idx] {
+			t.Errorf("PreOrder() = %d, want %d", i, want[idx])
+		}
+		idx += 1
+		return true
+	})
+}

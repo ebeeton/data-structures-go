@@ -66,3 +66,18 @@ func (tree *BSTree[T]) Add(t T) {
 func (tree *BSTree[T]) Count() uint {
 	return tree.count
 }
+
+// PreOrder performs an pre-order traversal and calls the supplied function with
+// each node's value. It stops either when the complete tree is traversed, or
+// the function returns false.
+func (tree *BSTree[T]) PreOrder(f func(t T) bool) {
+	preOrder(tree.root, f)
+}
+
+func preOrder[T any](n *node[T], f func(t T) bool) {
+	if n == nil || !f(n.data) {
+		return
+	}
+	preOrder(n.left, f)
+	preOrder(n.right, f)
+}
