@@ -81,3 +81,24 @@ func TestInOrder(t *testing.T) {
 		idx += 1
 	})
 }
+
+func TestPostOrder(t *testing.T) {
+	tree := NewBSTree(less)
+	tree.Add(100)
+	tree.Add(20)
+	tree.Add(10)
+	tree.Add(30)
+	tree.Add(200)
+	tree.Add(150)
+	tree.Add(300)
+
+	want := []int{10, 30, 20, 150, 300, 200, 100}
+
+	idx := 0
+	tree.PostOrder(func(i int) {
+		if i != want[idx] {
+			t.Errorf("PostOrder() = %d, want %d", i, want[idx])
+		}
+		idx += 1
+	})
+}

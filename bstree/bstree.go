@@ -67,7 +67,7 @@ func (tree *BSTree[T]) Count() uint {
 	return tree.count
 }
 
-// PreOrder performs an pre-order traversal and calls the supplied function with
+// PreOrder performs a pre-order traversal and calls the supplied function with
 // each node's value.
 func (tree *BSTree[T]) PreOrder(f func(t T)) {
 	preOrder(tree.root, f)
@@ -97,4 +97,20 @@ func inOrder[T any](n *node[T], f func(t T)) {
 	inOrder(n.left, f)
 	f(n.data)
 	inOrder(n.right, f)
+}
+
+// PostOrder performs a post-order traversal and calls the supplied function with
+// each node's value.
+func (tree *BSTree[T]) PostOrder(f func(t T)) {
+	postOrder(tree.root, f)
+}
+
+func postOrder[T any](n *node[T], f func(t T)) {
+	if n == nil {
+		return
+	}
+
+	postOrder(n.left, f)
+	postOrder(n.right, f)
+	f(n.data)
 }
