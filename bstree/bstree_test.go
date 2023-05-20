@@ -46,13 +46,15 @@ func TestCount(t *testing.T) {
 
 func TestPreOrder(t *testing.T) {
 	tree := NewBSTree(less)
-	tree.Add(10) // Root
-	tree.Add(3)  // Root.left
-	tree.Add(1)  // Root.left.left
-	tree.Add(13) // Root.right
-	tree.Add(15) // Root.right.right
+	tree.Add(100)
+	tree.Add(20)
+	tree.Add(10)
+	tree.Add(30)
+	tree.Add(200)
+	tree.Add(150)
+	tree.Add(300)
 
-	want := []int{10, 3, 1, 13, 15}
+	want := []int{100, 20, 10, 30, 200, 150, 300}
 
 	idx := 0
 	tree.PreOrder(func(i int) {
@@ -65,13 +67,15 @@ func TestPreOrder(t *testing.T) {
 
 func TestInOrder(t *testing.T) {
 	tree := NewBSTree(less)
-	tree.Add(10) // Root
-	tree.Add(3)  // Root.left
-	tree.Add(1)  // Root.left.left
-	tree.Add(13) // Root.right
-	tree.Add(15) // Root.right.right
+	tree.Add(100)
+	tree.Add(20)
+	tree.Add(10)
+	tree.Add(30)
+	tree.Add(200)
+	tree.Add(150)
+	tree.Add(300)
 
-	want := []int{1, 3, 10, 13, 15}
+	want := []int{10, 20, 30, 100, 150, 200, 300}
 
 	idx := 0
 	tree.InOrder(func(i int) {
