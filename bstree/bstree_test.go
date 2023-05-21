@@ -123,8 +123,8 @@ func TestSearchPositive(t *testing.T) {
 
 	const want = 200
 
-	if got := tree.Search(want); got == nil {
-		t.Errorf("Search() = %d, want %d", got, want)
+	if got, ok := tree.Search(want); got != want || !ok {
+		t.Errorf("Search() = (%d, %t), want (%d, true)", got, ok, want)
 	}
 }
 
@@ -140,7 +140,7 @@ func TestSearchNegative(t *testing.T) {
 
 	const want = 1
 
-	if got := tree.Search(want); got != nil {
-		t.Errorf("Search() = %d, want nil", got)
+	if got, ok := tree.Search(want); got != 0 || ok {
+		t.Errorf("Search() = (%v, %t), want false", got, ok)
 	}
 }

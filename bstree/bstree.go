@@ -119,17 +119,18 @@ func postOrder[T any](n *node[T], f func(t T)) {
 	f(n.data)
 }
 
-// Search finds the first node in the tree with data equal to the parameter.
-// It returns a pointer to the data if found, and nil otherwise.
-func (tree *BSTree[T]) Search(t T) *T {
+// Search finds the first node in the tree with a value equal to the parameter.
+// It returns the value and true if found, and the zero value of the data and
+// false otherwise.
+func (tree *BSTree[T]) Search(t T) (T, bool) {
 	return tree.search(tree.root, t)
 }
 
-func (tree *BSTree[T]) search(n *node[T], t T) *T {
+func (tree *BSTree[T]) search(n *node[T], t T) (T, bool) {
 	if n == nil {
-		return nil
+		return *new(T), false
 	} else if tree.equal(n.data, t) {
-		return &n.data
+		return n.data, true
 	} else if tree.less(n.data, t) {
 		return tree.search(n.right, t)
 	} else {
