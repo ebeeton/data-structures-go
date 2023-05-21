@@ -9,14 +9,18 @@ type node[T any] struct {
 // A binary search tree.
 type BSTree[T any] struct {
 	less  func(T, T) bool
+	equal func(T, T) bool
 	root  *node[T]
 	count uint
 }
 
-// NewBSTree, given a comparison function, returns a new BSTree.
-func NewBSTree[T any](less func(T, T) bool) *BSTree[T] {
+// NewBSTree returns a new BSTree. The first argument is a function that returns
+// true if the first T is less than the second. The second argument is a
+// function that returns true if the first T is equal to the second.
+func NewBSTree[T any](less, equal func(T, T) bool) *BSTree[T] {
 	return &BSTree[T]{
-		less: less,
+		less:  less,
+		equal: equal,
 	}
 }
 
@@ -113,4 +117,22 @@ func postOrder[T any](n *node[T], f func(t T)) {
 	postOrder(n.left, f)
 	postOrder(n.right, f)
 	f(n.data)
+}
+
+// Search finds the first node in the tree with data equal to the parameter.
+// It returns a pointer to the data if found, and nil otherwise.
+func (tree *BSTree[T]) Search(t T) *T {
+	return tree.search(tree.root, t)
+}
+
+func (tree *BSTree[T]) search(n *node[T], t T) *T {
+	if n == nil {
+		return nil
+	} else if tree.equal(n.data, t) {
+		return &n.data
+	} else if tree.less(n.data, t) {
+		return tree.search(n.right, t)
+	} else {
+		return tree.search(n.left, t)
+	}
 }
