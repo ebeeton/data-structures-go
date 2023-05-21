@@ -141,6 +141,6 @@ func TestSearchNegative(t *testing.T) {
 	const want = 1
 
 	if got := tree.Search(want); got != nil {
-		t.Errorf("Search() = %d, want %d", got, want)
+		t.Errorf("Search() = %d, want nil", got)
 	}
 }
