@@ -175,17 +175,29 @@ func TestAddWithStruct(t *testing.T) {
 		l.Add(b)
 	}
 
-	want := []string{
-		"Bing",
-		"DuckDuckGo",
-		"Google",
-		"Wolfram Alpha",
+	want := []bookmark{
+		{
+			name: "Bing",
+			url:  "https://www.bing.com",
+		},
+		{
+			name: "DuckDuckGo",
+			url:  "https://www.duckduckgo.com",
+		},
+		{
+			name: "Google",
+			url:  "https://www.google.com",
+		},
+		{
+			name: "Wolfram Alpha",
+			url:  "https://www.wolframalpha.com/",
+		},
 	}
 
 	idx := 0
 	l.Traverse(func(b bookmark) bool {
-		if b.name != want[idx] {
-			t.Errorf("Traverse() = %s, want %s", b.name, want[idx])
+		if b != want[idx] {
+			t.Errorf("Traverse() = %v, want %v", b, want[idx])
 		}
 		idx++
 		return true
