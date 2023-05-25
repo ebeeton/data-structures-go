@@ -180,7 +180,7 @@ func TestSearchStructPositive(t *testing.T) {
 		url:  "https://www.wolframalpha.com",
 	}
 
-	if got, found := tree.Search(bookmark{name: "Wolfram Alpha"}); !found {
+	if got, found := tree.Search(want); !found {
 		t.Errorf("Search() = %t, want true", found)
 	} else if got != want {
 		t.Errorf("Search() = %v, want %v", got, want)
