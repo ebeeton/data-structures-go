@@ -186,3 +186,42 @@ func TestSearchStructPositive(t *testing.T) {
 		t.Errorf("Search() = %v, want %v", got, want)
 	}
 }
+
+func TestSearchStructNegative(t *testing.T) {
+	type bookmark struct {
+		name, url string
+	}
+
+	tree := NewBSTree(func(a, b bookmark) bool {
+		return a.name < b.name
+	},
+		func(a, b bookmark) bool {
+			return a.name == b.name
+		})
+
+	tree.Add(bookmark{
+		name: "Google",
+		url:  "https://www.google.com",
+	})
+	tree.Add(bookmark{
+		name: "Bing",
+		url:  "https://www.bing.com",
+	})
+
+	tree.Add(bookmark{
+		name: "Wolfram Alpha",
+		url:  "https://www.wolframalpha.com",
+	})
+	tree.Add(bookmark{
+		name: "DuckDuckGo",
+		url:  "https://www.duckduckgo.com",
+	})
+
+	want := bookmark{}
+
+	if got, found := tree.Search(want); found {
+		t.Errorf("Search() = %t, want false", found)
+	} else if got != want {
+		t.Errorf("Search() = %v, want %v", got, want)
+	}
+}
