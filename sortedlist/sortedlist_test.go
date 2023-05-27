@@ -142,3 +142,64 @@ func TestTraverseRStopEarly(t *testing.T) {
 		t.Errorf("idx = %d, want 3", idx)
 	}
 }
+
+func TestAddWithStruct(t *testing.T) {
+	type bookmark struct {
+		name, url string
+	}
+
+	l := NewSortedList(func(a, b bookmark) bool {
+		return a.name < b.name
+	})
+
+	bookmarks := []bookmark{
+		{
+			name: "Google",
+			url:  "https://www.google.com",
+		},
+		{
+			name: "Bing",
+			url:  "https://www.bing.com",
+		},
+		{
+			name: "Wolfram Alpha",
+			url:  "https://www.wolframalpha.com/",
+		},
+		{
+			name: "DuckDuckGo",
+			url:  "https://www.duckduckgo.com",
+		},
+	}
+
+	for _, b := range bookmarks {
+		l.Add(b)
+	}
+
+	want := []bookmark{
+		{
+			name: "Bing",
+			url:  "https://www.bing.com",
+		},
+		{
+			name: "DuckDuckGo",
+			url:  "https://www.duckduckgo.com",
+		},
+		{
+			name: "Google",
+			url:  "https://www.google.com",
+		},
+		{
+			name: "Wolfram Alpha",
+			url:  "https://www.wolframalpha.com/",
+		},
+	}
+
+	idx := 0
+	l.Traverse(func(b bookmark) bool {
+		if b != want[idx] {
+			t.Errorf("Traverse() = %v, want %v", b, want[idx])
+		}
+		idx++
+		return true
+	})
+}
